@@ -49,7 +49,7 @@ exports.default = {
       this.loading = true;
       if (this.debounce > 0) {
         if (this.timer != null) {
-          clearTimeout(this.timer);
+          clearTimeout(th.timer);
         }
         this.timer = setTimeout(function () {
           th.fireFetch();
