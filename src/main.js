@@ -1,6 +1,7 @@
 import { util } from 'vue'
 
 export default {
+  props:['debounce'],
   data () {
     return {
       items: [],
@@ -8,7 +9,8 @@ export default {
       current: -1,
       loading: false,
       selectFirst: false,
-      queryParamName: 'q'
+      queryParamName: 'q',
+      timer:null,
     }
   },
 
@@ -28,15 +30,27 @@ export default {
 
   methods: {
     update () {
+      var th = this;
+      this.loading = true
+      if( this.debounce > 0) {
+        if( this.timer != null ) { 
+          clearTimeout(this.timer)
+        }
+        this.timer = setTimeout(function(){ th.fireFetch() },th.debounce)
+      }else{
+        this.fireFetch()
+      }
+    },
+    fireFetch () {
       if (!this.query) {
+        this.loading = false
         return this.reset()
       }
 
       if (this.minChars && this.query.length < this.minChars) {
+        this.loading = false
         return
       }
-
-      this.loading = true
 
       this.fetch().then((response) => {
         if (this.query) {

@@ -17,6 +17,7 @@ var _vue = require('vue');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
+  props: ['debounce'],
   data: function data() {
     return {
       items: [],
@@ -24,7 +25,8 @@ exports.default = {
       current: -1,
       loading: false,
       selectFirst: false,
-      queryParamName: 'q'
+      queryParamName: 'q',
+      timer: null
     };
   },
 
@@ -43,28 +45,41 @@ exports.default = {
 
   methods: {
     update: function update() {
-      var _this = this;
+      this.loading = true;
+      if (this.debounce > 0) {
+        if (this.timer != null) {
+          clearTimeout(_this.timer);
+        }
+        this.timer = setTimeout(function () {
+          this.fireFetch();
+        }, this.debounce);
+      } else {
+        this.fireFetch();
+      }
+    },
+    fireFetch: function fireFetch() {
+      var _this2 = this;
 
       if (!this.query) {
+        this.loading = false;
         return this.reset();
       }
 
       if (this.minChars && this.query.length < this.minChars) {
+        this.loading = false;
         return;
       }
 
-      this.loading = true;
-
       this.fetch().then(function (response) {
-        if (_this.query) {
+        if (_this2.query) {
           var data = response.data;
-          data = _this.prepareResponseData ? _this.prepareResponseData(data) : data;
-          _this.items = _this.limit ? data.slice(0, _this.limit) : data;
-          _this.current = -1;
-          _this.loading = false;
+          data = _this2.prepareResponseData ? _this2.prepareResponseData(data) : data;
+          _this2.items = _this2.limit ? data.slice(0, _this2.limit) : data;
+          _this2.current = -1;
+          _this2.loading = false;
 
-          if (_this.selectFirst) {
-            _this.down();
+          if (_this2.selectFirst) {
+            _this2.down();
           }
         }
       });
