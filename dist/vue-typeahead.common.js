@@ -45,20 +45,21 @@ exports.default = {
 
   methods: {
     update: function update() {
+      var th = this;
       this.loading = true;
       if (this.debounce > 0) {
         if (this.timer != null) {
-          clearTimeout(_this.timer);
+          clearTimeout(this.timer);
         }
         this.timer = setTimeout(function () {
-          this.fireFetch();
-        }, this.debounce);
+          th.fireFetch();
+        }, th.debounce);
       } else {
         this.fireFetch();
       }
     },
     fireFetch: function fireFetch() {
-      var _this2 = this;
+      var _this = this;
 
       if (!this.query) {
         this.loading = false;
@@ -71,15 +72,15 @@ exports.default = {
       }
 
       this.fetch().then(function (response) {
-        if (_this2.query) {
+        if (_this.query) {
           var data = response.data;
-          data = _this2.prepareResponseData ? _this2.prepareResponseData(data) : data;
-          _this2.items = _this2.limit ? data.slice(0, _this2.limit) : data;
-          _this2.current = -1;
-          _this2.loading = false;
+          data = _this.prepareResponseData ? _this.prepareResponseData(data) : data;
+          _this.items = _this.limit ? data.slice(0, _this.limit) : data;
+          _this.current = -1;
+          _this.loading = false;
 
-          if (_this2.selectFirst) {
-            _this2.down();
+          if (_this.selectFirst) {
+            _this.down();
           }
         }
       });
