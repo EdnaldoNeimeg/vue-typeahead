@@ -1,7 +1,7 @@
 {
   "name": "vue-typeahead",
   "version": "2.3.0",
-  "author": "Pantelis Peslis <pespantelis@gmail.com>",
+  "author": "Ednaldo Neimeg <neimeg@gmail.com>",
   "license": "MIT",
   "description": "Typeahead component for Vue.js",
   "keywords": [
@@ -11,10 +11,10 @@
   "main": "dist/vue-typeahead.common.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pespantelis/vue-typeahead.git"
+    "url": "https://github.com/EdnaldoNeimeg/vue-typeahead.git"
   },
-  "bugs": "https://github.com/pespantelis/vue-typeahead/issues",
-  "homepage": "http://pespantelis.github.io/vue-typeahead/",
+  "bugs": "https://github.com/EdnaldoNeimeg/vue-typeahead/issues",
+  "homepage": "http://EdnaldoNeimeg.github.io/vue-typeahead/",
   "scripts": {
     "lint": "eslint src demo",
     "dev": "webpack-dev-server --content-base demo/ --inline --hot",

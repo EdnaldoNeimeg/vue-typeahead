@@ -7,7 +7,7 @@ See a live demo [here](http://pespantelis.github.io/vue-typeahead/).
 #### NPM
 Available through npm as `vue-typeahead`.
 ```
-npm install --save vue-typeahead
+npm install --save [this repo url]
 ```
 > Also, you need to install the [`vue-resource`](https://github.com/vuejs/vue-resource) plugin.
 
